@@ -4,8 +4,8 @@ import time
 import glob
 import os
 import subprocess
+from mathExpressions import *
 from latexConverter import latex2png
-from mathExpressions import randNum, determinant, eigenvalue, integrate, differential, getPrime
 from voiceExpressions import statement2mp3
 from graphExpressions import graphDisplay
 from primeGuess import primeCheck, primeDisplay
