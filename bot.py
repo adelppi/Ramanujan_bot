@@ -4,15 +4,15 @@ import time
 import glob
 import os
 import subprocess
-from mathExpressions import *
-from latexConverter import latex2png
-from voiceExpressions import statement2mp3
-from graphExpressions import graphDisplay
-from primeGuess import primeCheck, primeDisplay
-from imageCrawling import imageCrawler
-from URLImageSaver import URLSave
-from AIChat import chat
-from qrCode import qrGen
+from Expressions.mathExpressions import *
+from Expressions.latexConverter import latex2png
+from Expressions.voiceExpressions import statement2mp3
+from Expressions.graphExpressions import graphDisplay
+from Expressions.primeGuess import primeCheck, primeDisplay
+from Expressions.imageCrawling import imageCrawler
+from Expressions.URLImageSaver import URLSave
+from Expressions.AIChat import chat
+from Expressions.qrCode import qrGen
 
 TOKEN = "MTA0NjA3Nzk4Mjc2ODM3Nzg3Ng.GKJ8nr.FbAG0OkZgBpl4Lgjdm34SEOC5b77ou-QiHIPYQ"
 
@@ -37,30 +37,30 @@ async def on_message(message):
         latexURL = "https://latex.codecogs.com/png.image?\dpi{1000}" + cmdInput
         try:
             latex2png(latexURL)
-            await message.channel.send(file = discord.File("/home/pi/Saves/bot/images/formula.png"))
+            await message.channel.send(file = discord.File("./Expressions/images/formula.png"))
         except Exception as e:
+            await message.channel.send("エラー")
             print("ERROR OCCURED", e)
-            await message.channel.send("エラー発生", e)
 
     if "!積分 " in message.content:
         cmdInput = message.content.replace("!積分 ", "")
         latexURL = "https://latex.codecogs.com/png.image?\dpi{1000}" + integrate(cmdInput).replace(" ", "{}").replace("=", "{=}")
         try:
             latex2png(latexURL)
-            await message.channel.send(file = discord.File("/home/pi/Saves/bot/images/formula.png"))
+            await message.channel.send(file = discord.File("./Expressions/images/formula.png"))
         except Exception as e:
             print("ERROR OCCURED", e)
-            await message.channel.send("エラー発生", e)
+            await message.channel.send("")
     
     if "!微分 " in message.content:
         cmdInput = message.content.replace("!微分 ", "")
         latexURL = "https://latex.codecogs.com/png.image?\dpi{1000}" + differential(cmdInput).replace(" ", "{}").replace("=", "{=}")
         try:
             latex2png(latexURL)
-            await message.channel.send(file = discord.File("/home/pi/Saves/bot/images/formula.png"))
+            await message.channel.send(file = discord.File("./Expressions/images/formula.png"))
         except Exception as e:
             print("ERROR OCCURED", e)
-            await message.channel.send("エラー発生", e)
+            await message.channel.send("")
 
     if "!行列式" in message.content:
         cmdInput = message.content.replace("!行列式", "").splitlines()
@@ -68,10 +68,10 @@ async def on_message(message):
         try:
             latexURL = "https://latex.codecogs.com/png.image?\dpi{1000}" + determinant(cmdInput).replace(" ", "{}").replace("=", "{=}")
             latex2png(latexURL)
-            await message.channel.send(file = discord.File("/home/pi/Saves/bot/images/formula.png"))
+            await message.channel.send(file = discord.File("./Expressions/images/formula.png"))
         except Exception as e:
             print("ERROR OCCURED", e)
-            await message.channel.send("エラー発生", e)
+            await message.channel.send("")
     
     if "!固有値" in message.content:
         cmdInput = message.content.replace("!固有値", "").splitlines()
@@ -79,40 +79,40 @@ async def on_message(message):
         try:
             latexURL = "https://latex.codecogs.com/png.image?\dpi{1000}" + eigenvalue(cmdInput).replace(" ", "{}").replace("=", "{=}")
             latex2png(latexURL)
-            await message.channel.send(file = discord.File("/home/pi/Saves/bot/images/formula.png"))
+            await message.channel.send(file = discord.File("./Expressions/images/formula.png"))
         except Exception as e:
             print("ERROR OCCURED", e)
-            await message.channel.send("エラー発生", e)
+            await message.channel.send("")
 
     if "!QR" in message.content:
         cmdInput = message.content.replace("!QR ", "")
         qrGen(cmdInput, emoji = False)
-        await message.channel.send(file = discord.File("./images/qr.png"))
+        await message.channel.send(file = discord.File("./Expressions/images/qr.png"))
 
     if "!画像" in message.content:
         cmdInput = message.content.replace("!画像 ", "")
-        filename = max(glob.glob("./images/000001.*"))
+        filename = max(glob.glob("./Expressions/images/000001.*"))
         os.remove(filename)
         imageCrawler(cmdInput)
-        filename = max(glob.glob("./images/000001.*"))
+        filename = max(glob.glob("./Expressions/images/000001.*"))
         await message.channel.send(file = discord.File(filename))
 
     if message.attachments != [] and "ラマヌジャン、" in message.content:
-        cmdInput = "画像を加工するプログラムをPythonとOpenCVで作ってください。解説等はいりません。条件は以下です。" + message.content.replace("ラマヌジャン、", "") + "。" + "入力画像のパスは'./images/img_edit_input.png'としてください。出力画像のパスを'./images/img_edit_output.png'としてください。.pyの形式の実行可能なソースコードのみを示してください。必要であれば他のライブラリも使ってよい。また、学習済みモデルを使用する場合、モデルのパスは'./models'を参照すること。"
+        cmdInput = "画像を加工するプログラムをPythonとOpenCVで作ってください。解説等はいりません。条件は以下です。" + message.content.replace("ラマヌジャン、", "") + "。" + "入力画像のパスは'./Expressions/images/img_edit_input.png'としてください。出力画像のパスを'./Expressions/images/img_edit_output.png'としてください。.pyの形式の実行可能なソースコードのみを示してください。必要であれば他のライブラリも使ってよい。また、学習済みモデルを使用する場合、モデルのパスは'./models'を参照すること。"
         result = chat(cmdInput).replace("python", "").replace("Python", "").replace("`", "")
-        f = open("imgEdit.py", "w")
+        f = open("./Expressions/imgEdit.py", "w")
         f.write("import numpy as np")
         f.write(result)
         f.close()
-        URLSave(message.attachments[0], "./images/img_edit_input.png")
-        subprocess.run(["python", "imgEdit.py"])
-        await message.channel.send(file = discord.File("/home/pi/Saves/bot/images/img_edit_output.png"))
-        os.remove(max(glob.glob('./images/img_edit_input.*')))
+        URLSave(message.attachments[0], "./Expressions/images/img_edit_input.png")
+        subprocess.run(["python", "./Expressions/imgEdit.py"])
+        await message.channel.send(file = discord.File("./Expressions/images/img_edit_output.png"))
+        os.remove(max(glob.glob('./Expressions/images/img_edit_input.*')))
 
     if "!グラフ " in message.content:
         cmdInput = message.content.replace("!グラフ ", "")
         graphDisplay(cmdInput)
-        await message.channel.send(file = discord.File("/home/pi/Saves/bot/images/graph.png"))
+        await message.channel.send(file = discord.File("./Expressions/images/graph.png"))
 
     if "!乱数 " in message.content:
         cmdInput = message.content.replace("!乱数 ", "").replace("整数", "0 ").replace("小数", "1 ").replace("から", " ").replace("まで", "")
@@ -129,7 +129,7 @@ async def on_message(message):
         await message.author.voice.channel.connect()
         await message.channel.send(f"{question}を素因数分解せよ。")
         await message.channel.send(f"答えは||     {realAnswer}     ||")
-        await message.guild.voice_client.play(discord.PCMVolumeTransformer(discord.FFmpegPCMAudio("/home/pi/Saves/bot/voices/voice.mp3"), volume=0.5))
+        await message.guild.voice_client.play(discord.PCMVolumeTransformer(discord.FFmpegPCMAudio("./Expressions/voices/voice.mp3"), volume=0.5))
         # await message.guild.voice_client.play(discord.PCMVolumeTransformer(discord.FFmpegPCMAudio("/home/pi/Saves/bot/voices/den.mp3"), volume=0.5))
         # await message.guild.voice_client.disconnect()
         # userAnswer = primeCheck(message.content)
@@ -138,7 +138,7 @@ async def on_message(message):
         cmdInput = message.content.replace("!素因数分解 ", "")
         latexURL = "https://latex.codecogs.com/png.image?\dpi{1000}" + primeDisplay(int(cmdInput)).strip().replace(" ", " \\times ").replace(" ", "{}").replace("=", "{=}")
         latex2png(latexURL)
-        await message.channel.send(file = discord.File("/home/pi/Saves/bot/images/formula.png"))
+        await message.channel.send(file = discord.File("./Expressions/images/formula.png"))
 
     if "ラマヌジャン、" in message.content and message.attachments == []:
         cmdInput = message.content.replace("ラマヌジャン、", "")
@@ -150,6 +150,6 @@ async def on_message(message):
     if "!read " in message.content:
         statement = message.content.replace("!read ", "")
         statement2mp3(statement)
-        await message.guild.voice_client.play(discord.PCMVolumeTransformer(discord.FFmpegPCMAudio("/home/pi/Saves/bot/voices/voice.mp3"), volume=0.5))
+        await message.guild.voice_client.play(discord.PCMVolumeTransformer(discord.FFmpegPCMAudio("./Expressions/voices/voice.mp3"), volume=0.5))
 
 client.run(TOKEN)

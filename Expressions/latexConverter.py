@@ -4,7 +4,7 @@ import cv2u
 import numpy as np
 
 def latex2png(latexURL):
-
+    print("OK1", latexURL)
     inputImg = cv2u.urlread(latexURL)
     height, width = inputImg.shape[:2]
     inputImg = inputImg[:, :, 3]
@@ -24,8 +24,8 @@ def latex2png(latexURL):
     outer[:, :, 2] = 54
 
     result = cv2.add(inner, outer)
-
-    cv2.imwrite("./images/formula.png", result)
+    print("OK2")
+    cv2.imwrite("/home/pi/Saves/bot/Expressions/images/formula.png", result)
 
 if __name__ == "__main__":
     text = r"y = \sin t"
