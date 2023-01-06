@@ -44,4 +44,4 @@ def qrGen(cmdInput, emoji):
         cv2.imwrite("./images/qr.png", img)
 
 if __name__ == "__main__":
-    qrGen("o", emoji = False)
+    qrGen("https://youtube.com", emoji = True)
