@@ -1,5 +1,5 @@
 import discord
-import TOKEN
+import DONT_README
 import random
 import time
 import glob
@@ -159,4 +159,4 @@ async def on_message(message):
         statement2mp3(statement)
         await message.guild.voice_client.play(discord.PCMVolumeTransformer(discord.FFmpegPCMAudio("./Expressions/voices/voice.mp3"), volume=0.5))
 
-client.run(TOKEN.TOKEN)
+client.run(DONT_README.TOKEN)
