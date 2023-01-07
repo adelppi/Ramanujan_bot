@@ -1,6 +1,7 @@
 import openai
+import key
 
-openai.api_key = "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"
+openai.api_key = key.A
 
 def chat(cmdInput):
 

@@ -1,3 +1,4 @@
 /.venv
 /Pipfile
-/DONT_README.py
+/TOKEN.py
+/Expressions/OPENAIKEY.py
