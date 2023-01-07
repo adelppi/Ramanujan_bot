@@ -13,6 +13,7 @@ from Expressions.imageCrawling import imageCrawler
 from Expressions.URLImageSaver import URLSave
 from Expressions.AIChat import chat
 from Expressions.qrCode import qrGen
+from Expressions.emoji import emojiReact
 
 TOKEN = "MTA0NjA3Nzk4Mjc2ODM3Nzg3Ng.GKJ8nr.FbAG0OkZgBpl4Lgjdm34SEOC5b77ou-QiHIPYQ"
 
