@@ -33,11 +33,10 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    terms = emojiReact(message.content)
-    time.sleep(10)
+    # terms = emojiReact(message.content)
     # terms = ["spaghetti", "sushi"]
-    for term in terms:
-        await message.add_reaction(emoji.emojize(":" + term + ":"))
+    # for term in terms:
+    #     await message.add_reaction(emoji.emojize(":" + term + ":"))
 
     if "!式 " in message.content:
         cmdInput = message.content.replace("!式 ", "").replace(" ", "{}").replace("=", "{=}")

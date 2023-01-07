@@ -18,10 +18,10 @@ def latex2png(latexURL):
     inner[:, :, 3] = np.where(inner[:, :, 1] == 0, 0, 255)
 
     outer = cv2.cvtColor(threshed, cv2.COLOR_BGR2BGRA)
-    outer[:, :, 3] = np.where(outer[:, :, 1] == 0, 0, 255)
     outer[:, :, 0] = 63
     outer[:, :, 1] = 57
     outer[:, :, 2] = 54
+    outer[:, :, 3] = np.where(outer[:, :, 1] == 0, 0, 255)
 
     result = cv2.add(inner, outer)
     print("OK2")
