@@ -12,4 +12,4 @@ def emojiReact(cmdInput):
     return result
 
 if __name__ == "__main__":
-    print(emojiReact("風呂"))
+    print(emojiReact("スパゲッティが食いてえ、ラーメンも食いてえ"))

@@ -1,9 +1,11 @@
 import discord
+import TOKEN
 import random
 import time
 import glob
 import os
 import subprocess
+import emoji
 from Expressions.mathExpressions import *
 from Expressions.latexConverter import latex2png
 from Expressions.voiceExpressions import statement2mp3
@@ -14,8 +16,6 @@ from Expressions.URLImageSaver import URLSave
 from Expressions.AIChat import chat
 from Expressions.qrCode import qrGen
 from Expressions.emoji import emojiReact
-
-TOKEN = "MTA0NjA3Nzk4Mjc2ODM3Nzg3Ng.GKJ8nr.FbAG0OkZgBpl4Lgjdm34SEOC5b77ou-QiHIPYQ"
 
 client = discord.Client(intents=discord.Intents.all())
 
@@ -32,6 +32,12 @@ async def on_message(message):
         print(message.attachments[0])
     if message.author.bot:
         return
+
+    terms = emojiReact(message.content)
+    time.sleep(10)
+    # terms = ["spaghetti", "sushi"]
+    for term in terms:
+        await message.add_reaction(emoji.emojize(":" + term + ":"))
 
     if "!式 " in message.content:
         cmdInput = message.content.replace("!式 ", "").replace(" ", "{}").replace("=", "{=}")
@@ -153,4 +159,4 @@ async def on_message(message):
         statement2mp3(statement)
         await message.guild.voice_client.play(discord.PCMVolumeTransformer(discord.FFmpegPCMAudio("./Expressions/voices/voice.mp3"), volume=0.5))
 
-client.run(TOKEN)
+client.run(TOKEN.TOKEN)
