@@ -14,7 +14,7 @@ from URLImageSaver import URLSave
 from AIChat import chat
 from qrCode import qrGen
 
-TOKEN = "MTA0NjA3Nzk4Mjc2ODM3Nzg3Ng.GKJ8nr.FbAG0OkZgBpl4Lgjdm34SEOC5b77ou-QiHIPYQ"
+TOKEN = "TOKEN"
 
 client = discord.Client(intents=discord.Intents.all())
 
